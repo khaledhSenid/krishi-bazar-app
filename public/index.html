@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishi Bazar — Farmer Dashboard</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">🌾</span><div><strong>Krishi Bazar</strong><small>Smart farming marketplace</small></div></div>
+    <div class="top-actions"><button class="ghost-btn" onclick="showHome()">Home</button><button class="outline" onclick="showLogin()">Farmer Login</button></div>
+  </header>
+
+  <main id="homeView">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="pill">For Bangladeshi farmers</span>
+        <h1>Grow more.<br><span>Sell smarter.</span></h1>
+        <p>Market prices, crop information and farmer services in one simple place.</p>
+        <div class="actions"><button class="primary" onclick="showLogin()">Open Farmer Dashboard →</button><button class="secondary" onclick="document.getElementById('prices').scrollIntoView({behavior:'smooth'})">View Market Prices</button></div>
+      </div>
+      <div class="hero-card"><div class="sun">☀️</div><div><b>Today's farmer tip</b><p>Check local market prices before taking your harvest to market.</p></div></div>
+    </section>
+    <section class="stats"><div><b>01</b><span>Farmer login</span></div><div><b>02</b><span>Market prices</span></div><div><b>03</b><span>Premium services</span></div><div><b>04</b><span>SMS & OTP ready</span></div></section>
+    <section id="prices" class="section"><div class="section-head"><div><span class="eyebrow">MARKET</span><h2>Today's crop prices</h2></div><span class="updated">Demo data • BDT/kg</span></div><div id="priceGrid" class="price-grid"></div></section>
+    <section class="features section"><div><span class="eyebrow">SERVICES</span><h2>Everything a farmer needs</h2></div><div class="feature-grid"><article><span>📈</span><h3>Market prices</h3><p>Quickly compare crop prices before selling.</p></article><article><span>🌱</span><h3>Crop information</h3><p>Practical information for better farm decisions.</p></article><article><span>🔔</span><h3>Farmer alerts</h3><p>Receive important updates and service notifications.</p></article><article><span>💳</span><h3>Premium services</h3><p>Ready for subscription and CaaS payment integration.</p></article></div></section>
+  </main>
+
+  <main id="dashboardView" class="dashboard-shell hidden">
+    <aside class="sidebar">
+      <div class="side-brand"><span>🌾</span><b>Krishi Bazar</b></div>
+      <nav>
+        <button class="nav-item active" data-target="overview" onclick="switchDash('overview')"><span>▦</span>Overview</button>
+        <button class="nav-item" data-target="market" onclick="switchDash('market')"><span>📈</span>Market Prices</button>
+        <button class="nav-item" data-target="crops" onclick="switchDash('crops')"><span>🌱</span>My Crops</button>
+        <button class="nav-item" data-target="alerts" onclick="switchDash('alerts')"><span>🔔</span>Alerts</button>
+        <button class="nav-item" data-target="premium" onclick="switchDash('premium')"><span>⭐</span>Premium Services</button>
+        <button class="nav-item" data-target="profile" onclick="switchDash('profile')"><span>👤</span>My Profile</button>
+      </nav>
+      <div class="side-bottom"><div class="side-help">Need help?<br><b>Farmer support</b></div><button class="logout" onclick="logout()">↪ Log out</button></div>
+    </aside>
+
+    <section class="dashboard-content">
+      <div class="mobile-dash-nav"><button onclick="toggleSidebar()">☰</button><b>Krishi Bazar</b><button onclick="logout()">↪</button></div>
+      <div class="dash-top"><div><span class="eyebrow">FARMER DASHBOARD</span><h1 id="welcomeName">Welcome, Farmer 👋</h1><p id="welcomeSub">Here is your farming overview for today.</p></div><div class="profile-chip" onclick="switchDash('profile')"><div id="avatar">F</div><div><b id="chipName">Farmer</b><small id="chipDistrict">Bangladesh</small></div></div></div>
+
+      <section id="dash-overview" class="dash-panel">
+        <div class="stat-cards"><article><div class="stat-icon green">🌾</div><div><span>Active crops</span><strong>3</strong><small>2 ready for harvest</small></div></article><article><div class="stat-icon blue">📈</div><div><span>Market average</span><strong>৳75</strong><small>Across tracked crops</small></div></article><article><div class="stat-icon orange">☀️</div><div><span>Today's weather</span><strong>31°C</strong><small>Partly cloudy</small></div></article><article><div class="stat-icon purple">⭐</div><div><span>Service status</span><strong id="overviewStatus">Free</strong><small>Premium available</small></div></article></div>
+        <div class="dash-grid two-thirds">
+          <article class="panel-card"><div class="panel-head"><div><span class="eyebrow">MARKET SNAPSHOT</span><h2>Today's prices</h2></div><button class="text-btn" onclick="switchDash('market')">View all →</button></div><div id="dashPriceList" class="dash-price-list"></div></article>
+          <article class="panel-card weather-card"><div class="panel-head"><div><span class="eyebrow">WEATHER</span><h2>Today</h2></div><span class="weather-dot">● Live-ready</span></div><div class="weather-main"><span>🌤️</span><div><strong>31°C</strong><p>Partly cloudy</p></div></div><div class="weather-row"><span>Morning <b>26°C</b></span><span>Afternoon <b>33°C</b></span><span>Rain <b>20%</b></span></div></article>
+        </div>
+        <div class="dash-grid three-cols"><article class="panel-card"><div class="panel-head"><h2>Farm tip</h2><span>💡</span></div><p class="big-tip">Check onion prices before selling. Local market rates can change during the day.</p><button class="text-btn" onclick="switchDash('market')">Check prices →</button></article><article class="panel-card"><div class="panel-head"><h2>My crops</h2><span>🌱</span></div><div class="crop-mini"><div><b>Rice</b><small>BRRI Dhan 29</small></div><span class="badge green-badge">Growing</span></div><div class="crop-mini"><div><b>Potato</b><small>Local</small></div><span class="badge yellow-badge">Harvest soon</span></div><button class="text-btn" onclick="switchDash('crops')">Manage crops →</button></article><article class="panel-card premium-mini"><div class="panel-head"><h2>Premium services</h2><span>⭐</span></div><p>Get farmer alerts and future Applink-powered services.</p><button class="primary small" onclick="switchDash('premium')">Explore services</button></article></div>
+      </section>
+
+      <section id="dash-market" class="dash-panel hidden"><div class="page-heading"><span class="eyebrow">MARKET</span><h2>Market prices</h2><p>Compare today's demo market rates before selling your harvest.</p></div><div id="fullPriceGrid" class="full-price-grid"></div></section>
+
+      <section id="dash-crops" class="dash-panel hidden"><div class="page-heading"><span class="eyebrow">FARM MANAGEMENT</span><h2>My crops</h2><p>Keep a simple record of crops and their current stage.</p></div><div class="crop-table"><div class="crop-row crop-head"><span>Crop</span><span>Variety</span><span>Stage</span><span>Expected harvest</span></div><div class="crop-row"><span><b>🌾 Rice</b></span><span>BRRI Dhan 29</span><span><span class="badge green-badge">Growing</span></span><span>October 2026</span></div><div class="crop-row"><span><b>🥔 Potato</b></span><span>Local</span><span><span class="badge yellow-badge">Harvest soon</span></span><span>October 2026</span></div><div class="crop-row"><span><b>🌶️ Chili</b></span><span>Green</span><span><span class="badge blue-badge">Flowering</span></span><span>November 2026</span></div></div><div class="empty-action"><span>＋</span><div><b>Add another crop</b><p>Crop tracking can be connected to your farmer profile later.</p></div><button class="secondary" onclick="notify('Crop entry will be connected in the next version.')">Add crop</button></div></section>
+
+      <section id="dash-alerts" class="dash-panel hidden"><div class="page-heading"><span class="eyebrow">NOTIFICATIONS</span><h2>Farmer alerts</h2><p>Important updates for your farm and Krishi Bazar services.</p></div><div class="alert-list"><article class="alert-card"><span class="alert-icon yellow">☀️</span><div><b>Weather update</b><p>Partly cloudy conditions today. Rain probability is around 20% in this demo.</p><small>Today • 8:30 AM</small></div></article><article class="alert-card"><span class="alert-icon green">📈</span><div><b>Market price update</b><p>Tomato is currently listed at ৳75/kg in the demo market feed.</p><small>Today • 8:00 AM</small></div></article><article class="alert-card"><span class="alert-icon blue">📱</span><div><b>SMS service ready</b><p>SMS notifications will be connected through Applink in the integration phase.</p><small>System message</small></div></article></div></section>
+
+      <section id="dash-premium" class="dash-panel hidden"><div class="page-heading"><span class="eyebrow">PREMIUM</span><h2>Farmer services</h2><p>Optional services designed to keep farmers informed.</p></div><div class="service-grid"><article class="service-card featured"><div class="service-icon">🔔</div><span class="service-tag">PREMIUM</span><h3>Farmer Alerts</h3><p>Receive important farming and market notifications by SMS.</p><ul><li>Market price alerts</li><li>Service notifications</li><li>Future Applink SMS integration</li></ul><button id="subscribeBtn" class="primary" onclick="subscribe()">Activate Demo</button></article><article class="service-card"><div class="service-icon">📊</div><span class="service-tag">COMING SOON</span><h3>Market Insights</h3><p>Track crop price movement and compare markets.</p><ul><li>Price trends</li><li>Crop comparisons</li><li>Personalized insights</li></ul><button class="secondary" onclick="notify('Market Insights is planned for the next release.')">Learn more</button></article><article class="service-card"><div class="service-icon">💳</div><span class="service-tag">COMING SOON</span><h3>Digital Payments</h3><p>Secure paid services using the future CaaS integration.</p><ul><li>One-time payment</li><li>OTP verification</li><li>Payment confirmation</li></ul><button class="secondary" onclick="notify('CaaS payment will be connected after the UI is tested.')">Learn more</button></article></div></section>
+
+      <section id="dash-profile" class="dash-panel hidden"><div class="page-heading"><span class="eyebrow">ACCOUNT</span><h2>My profile</h2><p>Your basic farmer account information.</p></div><div class="profile-card"><div class="profile-avatar" id="profileAvatar">F</div><div class="profile-fields"><div><span>Full name</span><b id="profileName">Farmer</b></div><div><span>Mobile number</span><b id="profilePhone">—</b></div><div><span>District</span><b id="profileDistrict">Bangladesh</b></div><div><span>Account ID</span><b id="profileId">—</b></div><div><span>Subscription</span><b id="profileSubscription">FREE</b></div><div><span>Account status</span><b class="status-text">Active</b></div></div></div></section>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden"><div class="modal-box"><button class="close" onclick="hideModal()">×</button><div id="loginStep"></div></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
