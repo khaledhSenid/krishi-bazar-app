@@ -343,6 +343,26 @@ app.post("/api/farmers/:phone/subscription", (req, res) => {
     });
 });
 
+// ==========================================
+// APPLINK MESSAGE CALLBACK
+// ==========================================
+
+app.post("/api/applink/message", (req, res) => {
+    console.log("-----------------------------------");
+    console.log("📩 Applink callback received");
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    console.log("-----------------------------------");
+
+    // Acknowledge the Applink callback
+    res.status(200).json({
+        success: true,
+        message: "Applink message received"
+    });
+});
+// ==========================================
+// START SERVER
+// ==========================================
 app.listen(PORT, '0.0.0.0', () => {
     console.log("-----------------------------------");
     console.log("🌾 Krishi Bazar server started");
